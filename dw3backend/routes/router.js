@@ -1,25 +1,31 @@
+// Importando o módulo express para criar um roteador
 const express = require("express");
 const routerApp = express.Router();
 
+const appLogin = require("../apps/login/controller/ctlLogin");
 const appAlunos = require("../apps/alunos/controller/ctlAlunos");
 const appCursos = require("../apps/cursos/controller/ctlCursos");
-const appClientes = require("../apps/clientes/controller/ctlClientes");
-const appPedidos = require("../apps/pedidos/controller/ctlPedidos");
-const appLogin = require("../apps/login/controller/ctlLogin");
 
-// middleware that is specific to this router
+// Middleware específico para este roteador
 routerApp.use((req, res, next) => {
-    next();
+  // Este middleware é chamado antes de todas as rotas neste roteador
+  // Você pode adicionar lógica aqui que deve ser executada para todas as rotas
+  // Por exemplo, você pode fazer a autenticação aqui antes de permitir o acesso às rotas subsequentes
+  next(); // Chama a próxima função no pipeline de middleware
 });
 
+// Rota inicial ("/") que envia uma mensagem de saudação
 routerApp.get("/", (req, res) => {
-    res.send("Olá mundo!");
+  res.send("Olá!");
 });
+
+// Rotas de Alunos
+// Você pode adicionar aqui as rotas relacionadas aos alunos
 
 //Rotas de Alunos
 routerApp.get("/getAllAlunos", appAlunos.getAllAlunos);
-routerApp.post("/getAlunoByID", appLogin.AutenticaJWT, appAlunos.getAlunoByID);
-routerApp.post("/insertAlunos", appLogin.AutenticaJWT, appAlunos.insertAlunos);
+routerApp.post("/getAlunoByID", appAlunos.getAlunoByID);
+routerApp.post("/insertAlunos", appAlunos.insertAlunos);
 routerApp.post("/updateAlunos", appAlunos.updateAlunos);
 routerApp.post("/DeleteAlunos", appAlunos.DeleteAlunos);
 
@@ -30,24 +36,9 @@ routerApp.post("/InsertCursos", appCursos.InsertCursos);
 routerApp.post("/UpdateCursos", appCursos.UpdateCursos);
 routerApp.post("/DeleteCursos", appCursos.DeleteCursos);
 
-//Rotas de Clientes
-routerApp.get("/GetAllClientes", appClientes.GetAllClientes);
-routerApp.post("/GetClienteByID", appClientes.GetClienteByID);
-routerApp.post("/InsertClientes", appClientes.InsertClientes);
-routerApp.post("/UpdateClientes", appClientes.UpdateClientes);
-routerApp.post("/DeleteClientes", appClientes.DeleteClientes);
-
-//Rotas de Pedidos
-routerApp.get("/GetAllPedidos", appPedidos.GetAllPedidos);
-routerApp.post("/GetPedidoByID", appPedidos.GetPedidoByID);
-routerApp.post("/InsertPedidos", appPedidos.InsertPedidos);
-routerApp.post("/UpdatePedidos", appPedidos.UpdatePedidos);
-routerApp.post("/DeletePedidos", appPedidos.DeletePedidos);
-
-
 // Rota Login
-routerApp.post("/Login", appLogin.Login);
-routerApp.post("/Logout", appLogin.Logout);
+ routerApp.post("/Login", appLogin.Login);
+ routerApp.post("/Logout", appLogin.Logout);
 
-
+// Exporta o roteador para que ele possa ser utilizado em outros lugares do código
 module.exports = routerApp;

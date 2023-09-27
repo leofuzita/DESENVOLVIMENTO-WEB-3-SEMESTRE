@@ -1,19 +1,22 @@
-### teste de login
-POST http://localhost:40001/Login HTTP/1.1
+### Teste de Login
+// Realiza uma solicitação POST para a rota de Login do servidor
+// usando o tipo de conteúdo JSON e enviando um objeto com nome de usuário e senha
+POST http://localhost:40000/Login HTTP/1.1
 content-type: application/json
 
 {
-
-    "username": "qwe",
-    "password": "qwe"
-
+  "username": "qwe", 
+  "password": "qwe" 
 }
 
-### teste de logout
-POST http://localhost:40001/Logout HTTP/1.1
+
+
+### Teste de Logout
+// Realiza uma solicitação POST para a rota de Logout do servidor
+// usando o tipo de conteúdo JSON e não enviando nenhum corpo
+POST http://localhost:40000/Logout HTTP/1.1
 content-type: application/json
 
 {
-
+    
 }
-
